@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Daughters of Tomorrow</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -33,8 +33,8 @@
 
 <div class="jumbotron">
   <div class="container text-center">
-    <h1>Search for Mummies here!</h1>      
-    <p>Mission, Vission & Values</p>
+    <h1>Daughters of Tomorrow</h1>      
+    <p>Facilitating Livelihood Opportunities For Underprivileged Women</p>
   </div>
 </div>
 
@@ -46,19 +46,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="#">Daughters of Tomorrow</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">Deals</a></li>
-        <li><a href="#">Stores</a></li>
-        <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+        <li><a href="#"><span id="account" class="glyphicon glyphicon-user"></span></a></li>
       </ul>
     </div>
   </div>
@@ -74,8 +68,10 @@
 
     <h2>Available Listings</h2>
     <div id='userList'>
-      <table>
+      <table style="width:100%;">
         <thead>
+          <th> Mother </th>
+	  <th> Map </th>
           <th> Location </th>
           <th> Pets </th>
           <th> Children </th>
@@ -150,7 +146,12 @@
 
 $(document).ready(function() {
   populateListing();
-  $('#btnAddUser').on('click', searchListing)});
+  $('#btnAddUser').on('click', searchListing)
+  var url = new URL(document.URL);
+  var nric = url.searchParams.get("NRIC");
+  $('#account').text('  ' + nric);
+  console.log(nric);
+  });
 
 function searchListing(){
 var url = new URL(document.URL);
@@ -185,6 +186,8 @@ function populateListing(data){
     $.each(data, function(index,tag){
       console.log(data);
       tableContent += '<tr>';
+      tableContent += '<td>' + '<img src="img/happy-mother-with-baby.jpg">' +'</td>'
+      tableContent += '<td>' + '<img src="img/happy-mother-with-baby.jpg ">' +'</td>'
       tableContent += '<td>' + tag["LOCATION"] + '</td>';
       tableContent += '<td>' + tag["PETS"] + '</td>';
       tableContent += '<td>'+ tag["CHILDREN"]  +'</td>';
