@@ -68,6 +68,21 @@
     <input type="text" id="searchInput" class="form-control" size="50" placeholder="Type location here">
     <button type="button" id="btnAddUser" class="btn btn-danger">Search!</button>
   </form><br>
+
+    <h2>User List</h2>
+    <div id='userList'>
+      <table>
+        <thead>
+          <th> NRIC </th>
+          <th> Approve? </th>
+        </thead>
+      <tbody>
+      </tbody>
+      </table>
+    </div>
+
+
+
   <div hidden id="changi" class="row">
     <div class="col-sm-4">
       <div class="panel panel-primary">
@@ -146,19 +161,31 @@ console.log(data);
       dataType: 'JSON'
     }).done(function(response){
       if(response.msg === 'Success'){
-	populateListing();
+	populateListing(response);
         $('#searchInput').val('');
 	console.log(response);
       }
       else {
+	populateListing(response);
         console.log(response);
       }
      });	
 }
 
-function populateListing(){
-  if($('#searchListing').val() == 'CHANGI')
-	;
+function populateListing(data){
+ // Fill table with data
+  var tableContent = '';
+    //for each item in JSON, add a table row and cells to content string
+    $.each(data, function(){
+      userListData = data;
+      tableContent += '<tr>';
+      tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
+      tableContent += '<td>' + this.email + '</td>';
+      tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+      tableContent += '</tr>';
+    });
+
+    $('#userList table tbody').html(tableContent);
 };
 
 </script>
