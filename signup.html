@@ -76,16 +76,17 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Username</div>
-        <div class="panel-body"></div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Password</div>
-        <div class="panel-body"></div>
-      </div>
+      <form action="https://dotcfg.herokuapp.com/createUser" method="post">
+        <div class="form-group">
+          <label class="sr-only" for="r-form-1-first-name">NRIC</label>
+          <input type="text" name="NRIC" placeholder="NRIC" class="r-form-1-first-name form-control" id="r-form-1-first-name" required>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="r-form-1-last-name">Password</label>
+          <input type="text" name="PWD" placeholder="Password" class="r-form-1-last-name form-control" id="r-form-1-last-name" required>
+        </div>
+        <button type="submit" class="btn">Sign me up!</button>
+      </form>
     </div>
   </div>
 </div><br>
