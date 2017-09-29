@@ -53,15 +53,12 @@ var ParentA = mongoose.model("ParentA", parentASchema);
 var ParentB = mongoose.model("ParentB", parentBSchema);
 var User = mongoose.model("User", userSchema);
 
-app.get("/verifyUser", [urlencodedParser, jsonParser], function(req, res) {
-  ParentA.find({ NRIC: req.query.NRIC, PWD: req.query.PWD }, function(
-    err,
-    user
-  ) {
+app.post("/login", [urlencodedParser, jsonParser], function(req, res) {
+  User.find({ NRIC: req.body.NRIC }, function(err, user) {
     if (!user.length) {
-      res.json({ Status: "Invalid" });
+      res.json({ Status: "Fail" });
     } else {
-      res.json({ Status: "Valid" });
+      res.json({ Status: "Success" });
     }
   });
 });
