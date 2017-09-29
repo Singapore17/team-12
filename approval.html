@@ -41,10 +41,8 @@ function deleteUser(){
       url: 'https://dotcfg.herokuapp.com/validateUser',
       dataType: 'JSON'
     }).done(function(response){
-      if(response.msg === 'Success'){
-
+      if(true)
         populateTable();
-      }
       else {
         alert('Error: ' + response.msg);
       }

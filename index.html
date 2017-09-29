@@ -61,7 +61,13 @@
   </div>
 </nav>
 
-<div class="container">    
+<div class="container">  
+  
+  <p>Search for Mummies!</p>  
+  <form class="form-inline">
+    <input type="text" id="searchInput" class="form-control" size="50" placeholder="Type location here">
+    <button type="button" id="btnAddUser" class="btn btn-danger">Search!</button>
+  </form>
   <div class="row">
     <div class="col-sm-4">
       <div class="panel panel-primary">
@@ -70,6 +76,7 @@
         <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
       </div>
     </div>
+
     <div class="col-sm-4"> 
       <div class="panel panel-danger">
         <div class="panel-heading">BLACK FRIDAY DEAL</div>
@@ -114,14 +121,44 @@
 </div><br><br>
 
 <footer class="container-fluid text-center">
-  <p>Online Store Copyright</p>  
-  <form class="form-inline">Get deals:
-    <input type="email" class="form-control" size="50" placeholder="Email Address">
-    <button type="button" class="btn btn-danger">Sign Up</button>
-  </form>
+
 </footer>
 
 </body>
+
+<script>
+
+$(document).ready(function() {
+  populateListing();
+  $('#btnAddUser').on('click', searchListing)});
+
+function searchListing(){
+var url = new URL(document.URL);
+var nric = url.searchParams.get("NRIC");
+
+var data = {"NRIC": nric,"LOCATION":$('#searchInput').val()};
+console.log(data);
+
+  $.ajax({
+      type: 'POST', 
+      data: data,
+      url: 'https://dotcfg.herokuapp.com/getListings', 
+      dataType: 'JSON'
+    }).done(function(response){
+      if(response.msg === 'Success'){
+        $('#searchInput').val('');
+	populateListing();
+	console.log(response);
+      }
+      else {
+        alert('Error: ' + response.msg);
+      }
+     });	
+}
+
+function populateListing(){};
+
+</script>
 </html>
 
 
