@@ -7,7 +7,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
+
+<link rel='stylesheet', href='css/style.css'>  
+
+<style>
     /* Remove the navbar's default rounded borders and increase the bottom margin */ 
     .navbar {
       margin-bottom: 50px;
@@ -67,14 +70,16 @@
   <form class="form-inline">
     <input type="text" id="searchInput" class="form-control" size="50" placeholder="Type location here">
     <button type="button" id="btnAddUser" class="btn btn-danger">Search!</button>
-  </form><br>
+  </form><br><br>
 
-    <h2>User List</h2>
+    <h2>Available Listings</h2>
     <div id='userList'>
       <table>
         <thead>
-          <th> NRIC </th>
-          <th> Approve? </th>
+          <th> Location </th>
+          <th> Pets </th>
+          <th> Children </th>
+          <th> Handphone Numer </th>
         </thead>
       <tbody>
       </tbody>
@@ -163,25 +168,27 @@ console.log(data);
       if(response.msg === 'Success'){
 	populateListing(response);
         $('#searchInput').val('');
-	console.log(response);
+	//console.log(response);
       }
       else {
 	populateListing(response);
-        console.log(response);
+        //console.log(response);
       }
      });	
 }
 
 function populateListing(data){
  // Fill table with data
+    
   var tableContent = '';
     //for each item in JSON, add a table row and cells to content string
-    $.each(data, function(){
-      userListData = data;
+    $.each(data, function(index,tag){
+      console.log(data);
       tableContent += '<tr>';
-      tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
-      tableContent += '<td>' + this.email + '</td>';
-      tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+      tableContent += '<td>' + tag["LOCATION"] + '</td>';
+      tableContent += '<td>' + tag["PETS"] + '</td>';
+      tableContent += '<td>'+ tag["CHILDREN"]  +'</td>';
+      tableContent += '<td>'+ '8923 4102'  +'</td>'; 
       tableContent += '</tr>';
     });
 
