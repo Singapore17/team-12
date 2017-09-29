@@ -8,12 +8,73 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- CSS -->
-
+  <link rel='stylesheet', href='css/style.css'>
   <script src="js/jquery-1.11.1.min.js"></script>
 
 </head>
 <body>
 
+<h2>User List</h2>
+    <div id='userList'>
+      <table>
+        <thead>
+          <th> NRIC </th>
+          <th> Approve? </th>
+        </thead>  
+      <tbody>
+      </tbody>
+      </table>
+    </div>
+</ul>
+
+<script>
+// Fill table with data
+$(document).ready(function() {
+	  //populate user table in initial page load
+	  populateTable();
+	  $('#userList table tbody').on('click','td a.linkdeleteuser',deleteUser);
+});
+function deleteUser(){
+  $.ajax({
+      type: 'POST',
+      data: {"NRIC" : $(this).attr('rel')},
+      url: 'https://dotcfg.herokuapp.com/validateUser',
+      dataType: 'JSON'
+    }).done(function(response){
+      if(response.msg === 'Success'){
+
+        populateTable();
+      }
+      else {
+        alert('Error: ' + response.msg);
+      }
+     }); 
+}
+
+
+function populateTable() {
+  //Empty content string
+  var tableContent = '';
+
+  //jQuery AJAX call for JSON
+  $.getJSON('https://dotcfg.herokuapp.com/getValidatingUsers', function(data){
+    //for each item in JSON, add a table row and cells to content string
+    console.log(data);
+    $.each(data, function(index,tag){
+	    console.log(index);
+	    console.log(tag["NRIC"]);
+      userListData = tag;
+      tableContent += '<tr>';
+      tableContent += '<td><a href="#" class="linkshowuser" rel="' + tag["NRIC"] + '">' + tag["NRIC"] + '</a></td>';
+      tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">Approve</a></td>';
+      tableContent += '</tr>';
+    });
+
+    $('#userList table tbody').html(tableContent);
+  });
+};
+
+</script>
 
 </body>
 </html>
