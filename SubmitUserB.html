@@ -52,6 +52,8 @@
 </nav>
 
 <form id="Bform" class="form-signin" method="POST" action="https://dotcfg.herokuapp.com/createBUser">
+  <label class="sr-only" for="r-form-1-first-name">NRIC</label>
+  <input type="text" name="NRIC" placeholder="NRIC" class="r-form-1-first-name form-control" id="NRIC-field" required style="display:none;">
   <h3 class="form-signin-heading">Age of children in your household</h2>
   <input class="form-control" type="text" required name="AGE" placeholder="AGE OF CHILDREN">
   <h3 class="form-signin-heading">Number of children in your household less than 8 years old</h3>
