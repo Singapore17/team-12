@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */
+    .navbar {
+      margin-bottom: 50px;
+      border-radius: 0;
+    }
+
+    /* Remove the jumbotron's default bottom margin */
+     .jumbotron {
+      margin-bottom: 0;
+    }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>Daughter of Tomorrow</h1>
+    <p>Sign Up Form B</p>
+  </div>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><div align="right"><span class="glyphicon glyphicon-user"></span><p id="NRIC"></p></div></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<form id="Bform" class="form-signin" method="POST" action="https://dotcfg.herokuapp.com/createBUser">
+  <label class="sr-only" for="r-form-1-first-name">NRIC</label>
+  <input type="text" name="NRIC" placeholder="NRIC" class="r-form-1-first-name form-control" id="NRIC-field" required style="display:none;">
+  <h3 class="form-signin-heading">Age of children in your household</h2>
+  <input class="form-control" type="text" required name="AGE" placeholder="AGE OF CHILDREN">
+  <h3 class="form-signin-heading">Number of children in your household less than 8 years old</h3>
+  <input class="form-control" type="text" required name="CHILDREN" placeholder="NUMBER OF CHILDREN">
+  <h3 class="form-signin-heading">Pets that you have (Type NIL if none)</h3>
+  <input class="form-control" type="text" required name="PETS" placeholder="PETS">
+   <h3 class="form-signin-heading">Location</h3>
+  <input class="form-control" type="text" required name="LOCATION" placeholder="LOCATION">
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit Preferences</button>
+</form>
+</body>
+
+<script>
+var url_string = window.location.href;
+var url = new URL(url_string);
+var NRIC = url.searchParams.get("NRIC");
+$('#NRIC-field').val(NRIC);
+$('#NRIC').html(NRIC);
+$("#Bform").submit(function(e) {
+  $.ajax({
+    type: "POST",
+    url: $(this).attr('action'),
+    data: $("#Bform").serialize(), // serializes the form's elements.
+    success: function(data) {
+      window.location.href = "index.html?NRIC="+NRIC;
+      $("#Bform")[0].reset();
+    },
+    statusCode: {
+      404: function() {
+        alert("Incorrect data entered!");
+      }
+    }
+  });
+  e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+</script>
+</html>
