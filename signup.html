@@ -76,7 +76,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <form action="https://dotcfg.herokuapp.com/createUser" method="post">
+      <form id="signUpForm" action="https://dotcfg.herokuapp.com/createUser" method="post">
         <div class="form-group">
           <label class="sr-only" for="r-form-1-first-name">NRIC</label>
           <input type="text" name="NRIC" placeholder="NRIC" class="r-form-1-first-name form-control" id="r-form-1-first-name" required>
@@ -100,4 +100,43 @@
 </footer>
 
 </body>
+
+<script>
+$("#signUpForm").submit(function(e) {
+  $.ajax({
+    type: "POST",
+    url: $(this).attr('action'),
+    data: $("#signUpForm").serialize(), // serializes the form's elements.
+    success: function(data) {
+      UIkit.notification({
+        message: "Update sent!",
+        status: "primary",
+        pos: "top-right",
+        timeout: 10000
+      });
+      //alert(JSON.stringify(data)); // show response from the php script.
+      $("#signUpForm")[0].reset();
+    },
+    statusCode: {
+      404: function() {
+        alert("Incorrect data entered!");
+      }
+    }
+  });
+  e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+// $('#signUpForm').submit(function() {
+//   console.log('hello');
+//     $.ajax({
+//         type: 'POST',
+//         url: $(this).attr('action'),
+//         dataType: 'json',
+//         success: function(json) {
+//            window.location.href = "index.html";
+//         }
+//     })
+//     return false;
+// });
+</script>
+
 </html>
