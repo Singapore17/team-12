@@ -79,11 +79,17 @@
       <form id="signUpForm" action="https://dotcfg.herokuapp.com/createUser" method="post">
         <div class="form-group">
           <label class="sr-only" for="r-form-1-first-name">NRIC</label>
-          <input type="text" name="NRIC" placeholder="NRIC" class="r-form-1-first-name form-control" id="r-form-1-first-name" required>
+          <input type="text" name="NRIC" placeholder="NRIC" class="r-form-1-first-name form-control" id="NRIC-field" required>
         </div>
         <div class="form-group">
           <label class="sr-only" for="r-form-1-last-name">Password</label>
-          <input type="text" name="PWD" placeholder="Password" class="r-form-1-last-name form-control" id="r-form-1-last-name" required>
+          <input type="text" name="PWD" placeholder="Password" class="r-form-1-last-name form-control" id="PWD-field" required>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" id="A-field">
+          <label>I'm looking for child sitters</label>
+          <input type="checkbox" id="B-field">
+          <label>I want to be a child sitter</label>
         </div>
         <button type="submit" class="btn">Sign me up!</button>
       </form>
@@ -103,17 +109,21 @@
 
 <script>
 $("#signUpForm").submit(function(e) {
+  var Afield = $('#A-field').is(":checked");
+  var Bfield = $('#B-field').is(":checked");
+  console.log(Afield);
+  console.log(Bfield);
   $.ajax({
     type: "POST",
     url: $(this).attr('action'),
     data: $("#signUpForm").serialize(), // serializes the form's elements.
     success: function(data) {
-      UIkit.notification({
-        message: "Update sent!",
-        status: "primary",
-        pos: "top-right",
-        timeout: 10000
-      });
+      if (Afield) {
+        window.location.href = "submitUserA.html?NRIC="+$('#NRIC-field').val()+'&B-field='+Bfield;
+      }
+      else {
+        window.location.href = "submitUserB.html?NRIC="+$('#NRIC-field').val();
+      }
       //alert(JSON.stringify(data)); // show response from the php script.
       $("#signUpForm")[0].reset();
     },
