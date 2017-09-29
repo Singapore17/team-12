@@ -169,11 +169,11 @@ console.log(data);
       if(response.msg === 'Success'){
 	populateListing(response);
         $('#searchInput').val('');
-	//console.log(response);
+	console.log(response);
       }
       else {
 	populateListing(response);
-        //console.log(response);
+        console.log(response);
       }
      });	
 }
@@ -187,7 +187,7 @@ function populateListing(data){
       console.log(data);
       tableContent += '<tr>';
       tableContent += '<td>' + '<img src="img/happy-mother-with-baby.jpg">' +'</td>'
-      tableContent += '<td>' + '<img src="img/happy-mother-with-baby.jpg ">' +'</td>'
+      tableContent += '<td>' + '<img src="img/map.png ">' +'</td>'
       tableContent += '<td>' + tag["LOCATION"] + '</td>';
       tableContent += '<td>' + tag["PETS"] + '</td>';
       tableContent += '<td>'+ tag["CHILDREN"]  +'</td>';
