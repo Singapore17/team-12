@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Daughters of Tomorrow - Sign Up</title>
+  <title>Daughters of Tomorrow - Log In</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -36,6 +36,23 @@
       background-color: #f2f2f2;
       padding: 25px;
     }
+
+    .window {
+      position: fixed;
+      z-index: 2;
+      width: 100%;
+      top: 200px;
+      text-align: center;
+    }
+    .box {
+      width: 600px;
+      height: 600px;
+      margin: auto;
+    }
+    #faceRecognition {
+      visibility: hidden;
+    }
+
   </style>
 </head>
 <body>
@@ -43,61 +60,45 @@
 <div class="jumbotron">
   <div class="container text-center">
     <h1>Daughters of Tomorrow</h1>
-    <p>Sign Up</p>
+    <p></p>
   </div>
 </div>
 
 <nav class="navbar navbar-inverse">
       <ul class="nav navbar-nav navbar-left">
-        <li><div align="left" style="color: white;"><a href="login.html" style="color: white;">Log In</a></div></li>
+        <li><div align="left" style="color: white;"><a href="signup.html" style="color: white;">Sign Up</a></div></li>
       </ul>
 </nav>
 
 <div class="container">
   <div class="row">
     <div class="col">
-      <form id="signUpForm" action="https://dotcfg.herokuapp.com/createUser" method="post">
+      <form id="loginForm" action="https://dotcfg.herokuapp.com/login" method="post">
         <div class="form-group">
           <label class="sr-only" for="r-form-1-first-name">NRIC</label>
           <input type="text" name="NRIC" placeholder="NRIC" class="r-form-1-first-name form-control" id="NRIC-field" required>
         </div>
-        <div class="form-group">
-          <label class="sr-only" for="r-form-1-last-name">Password</label>
-          <input type="text" name="PWD" placeholder="Password" class="r-form-1-last-name form-control" id="PWD-field" required>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" id="A-field">
-          <label>I'm looking for child sitters</label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" id="B-field">
-          <label>I want to be a child sitter</label>
-        </div>
-        <button type="submit" class="btn">Sign me up!</button>
+        <button type="submit" class="btn">Log in (Face Scanning)</button>
       </form>
     </div>
   </div>
 </div><br>
 
+<div class="window" id="faceRecognition">
+  <img src="face.jpg" class="box" />
+</div>
+
 </body>
 
 <script>
-$("#signUpForm").submit(function(e) {
-  var Afield = $('#A-field').is(":checked");
-  var Bfield = $('#B-field').is(":checked");
-  $.ajax({
+function sendForm(){
+    $.ajax({
     type: "POST",
-    url: $(this).attr('action'),
-    data: $("#signUpForm").serialize(), // serializes the form's elements.
+    url: $("#loginForm").attr('action'),
+    data: $("#loginForm").serialize(), // serializes the form's elements.
     success: function(data) {
-      if (Afield) {
-        window.location.href = "submitUserA.html?NRIC="+$('#NRIC-field').val()+'&B-field='+Bfield;
-      }
-      else {
-        window.location.href = "submitUserB.html?NRIC="+$('#NRIC-field').val();
-      }
-      //alert(JSON.stringify(data)); // show response from the php script.
-      $("#signUpForm")[0].reset();
+      window.location.href = "index.html?NRIC="+$('#NRIC-field').val();
+      $("#loginForm")[0].reset();
     },
     statusCode: {
       404: function() {
@@ -105,20 +106,13 @@ $("#signUpForm").submit(function(e) {
       }
     }
   });
-  e.preventDefault(); // avoid to execute the actual submit of the form.
+}
+
+$("#loginForm").submit(function(e) {
+  $('#faceRecognition').css('visibility','visible');
+  setTimeout(sendForm, 4000);
+  e.preventDefault();
 });
-// $('#signUpForm').submit(function() {
-//   console.log('hello');
-//     $.ajax({
-//         type: 'POST',
-//         url: $(this).attr('action'),
-//         dataType: 'json',
-//         success: function(json) {
-//            window.location.href = "index.html";
-//         }
-//     })
-//     return false;
-// });
 </script>
 
 </html>

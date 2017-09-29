@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Daughters of Tomorrow - My Child Sitter Preferences</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,48 +30,43 @@
 
 <div class="jumbotron">
   <div class="container text-center">
-    <h1>Daughter of Tomorrow</h1>
-    <p>Sign Up Form A</p>
+    <h1>Daughters of Tomorrow</h1>
+    <p>My Child Sitter Preferences</p>
   </div>
 </div>
 
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><div align="right"><span class="glyphicon glyphicon-user"></span><p id="NRIC"></p></div></a></li>
+      <ul class="nav navbar-nav navbar-left">
+        <li><div align="left" style="color: white;"><span class="glyphicon glyphicon-user"></span><p id="NRIC"></p></div></li>
       </ul>
-    </div>
-  </div>
 </nav>
 
 <body>
-<form id="Aform" class="form-signin" method="POST" action="https://dotcfg.herokuapp.com/createAUser" novalidate>
-  <label class="sr-only" for="r-form-1-first-name">NRIC</label>
-  <input type="text" name="NRIC" placeholder="NRIC" class="r-form-1-first-name form-control" id="NRIC-field" required style="display:none;">
-  <h3 class="form-signin-heading">Age of children</h3>
-  <input class="form-control" type="text" required name="AGE" placeholder="E.g. 8">
-  <h3 class="form-signin-heading">Number of children</h3>
-  <input class="form-control" type="text" required name="CHILDREN" placeholder="1, 2, 3, 4">
-  <h3 class="form-signin-heading">Are you ok with pets in the house?</h3>
-  <input class="form-control" type="text" required name="PETS" placeholder="YES/NO">
-  <label class="checkbox"></label>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit Preferences</button>
-</form>
-</body>
-
-
-<footer class="container-fluid text-center">
-  <p><a href="https://">Contact Us</a></p>
-  </form>
-</footer>
-
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form id="Aform" action="https://dotcfg.herokuapp.com/createAUser" method="post" novalidate>
+        <div class="form-group">
+          <label class="sr-only" for="r-form-1-first-name">NRIC</label>
+          <input type="text" name="NRIC" placeholder="NRIC" class="r-form-1-first-name form-control" id="NRIC-field" style="display:none;">
+        </div>
+        <div class="form-group">
+          <label for="r-form-1-last-name">Age of children</label>
+          <input type="text" name="AGE" placeholder="E.g. 8" class="r-form-1-last-name form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="r-form-1-last-name">Number of children</label>
+          <input type="text" name="CHILDREN" placeholder="E.g. 1, 2, 3, 4" class="r-form-1-last-name form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="r-form-1-last-name">Are you ok with pets in the house?</label>
+          <input type="text" name="PETS" placeholder="YES/NO" class="r-form-1-last-name form-control" required>
+        </div>
+        <button type="submit" class="btn">Submit Preferences</button>
+      </form>
+    </div>
+  </div>
+</div><br>
 </body>
 
 <script>
