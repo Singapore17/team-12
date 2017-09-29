@@ -35,6 +35,8 @@ $(document).ready(function() {
 	  $('#userList table tbody').on('click','td a.linkdeleteuser',deleteUser);
 });
 function deleteUser(){
+
+  console.log($(this));
   $.ajax({
       type: 'POST',
       data: {"NRIC" : $(this).attr('rel')},
@@ -44,7 +46,7 @@ function deleteUser(){
       if(true)
         populateTable();
       else {
-        alert('Error: ' + response.msg);
+        populateTable();
       }
      }); 
 }
@@ -64,7 +66,7 @@ function populateTable() {
       userListData = tag;
       tableContent += '<tr>';
       tableContent += '<td><a href="#" class="linkshowuser" rel="' + tag["NRIC"] + '">' + tag["NRIC"] + '</a></td>';
-      tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">Approve</a></td>';
+      tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + tag["NRIC"] + '">Approve</a></td>';
       tableContent += '</tr>';
     });
 
