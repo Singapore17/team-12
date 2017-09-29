@@ -4963,7 +4963,7 @@ a.badge:focus {
   padding-bottom: 30px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #eee;
+  background-image: url('img/360_hero.jpg');
 }
 .jumbotron h1,
 .jumbotron .h1 {
